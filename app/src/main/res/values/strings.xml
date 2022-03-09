@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Mobile Code Test</string>
+    <string name="btn_create_new_account">Create New Account</string>
+    <string name="btn_login_with_email_address">Login with email address</string>
+    <string name="btn_login_with_facebook">Login with facebook</string>
+    <string name="content_close_button">close button</string>
+    <string name="lbl_sign_up_title">Almost there!</string>
+    <string name="lbl_sign_up_banner_body_text">Complete the form below to create \nyour Ready to Travel account.</string>
+    <string name="lbl_mandatory">* Mandatory</string>
+    <string name="title_sing_up">Create Account</string>
+    <string name="lbl_first_name">First Name <font color='#FF0000'>*</font></string>
+    <string name="lbl_last_name">Last Name <font color='#FF0000'>*</font></string>
+    <string name="lbl_email_address">Email Address <font color='#FF0000'>*</font></string>
+    <string name="lbl_dob">Date of Birth <font color='#FF0000'>*</font></string>
+    <string name="hint_dob">DD/MM/YYYY</string>
+    <string name="btn_female">Female</string>
+    <string name="btn_male">Male</string>
+    <string name="lbl_nationality">Nationality <font color='#FF0000'>*</font></string>
+    <string name="lbl_residence">Country of Residence <font color='#FF0000'>*</font></string>
+    <string name="lbl_mobile_no">Mobile Number (Optional)</string>
+    <string name="lbl_welcome_title">Welcome to\nReady to Travel</string>
+    <string name="lbl_welcome_body">Sign up with facebook for the most\nfulfilling trip planning experience with us!</string>
+
+</resources>

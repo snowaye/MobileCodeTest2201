@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_large">20dp</dimen>
+    <dimen name="margin_xLarge">36dp</dimen>
+    <dimen name="margin_xxLarge">50dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_normal">16dp</dimen>
+    <dimen name="corner_radius_round">36dp</dimen>
+    <dimen name="plant_detail_app_bar_height">278dp</dimen>
+    <dimen name="margin_scrollview_bottom">70dp</dimen>
+</resources>
