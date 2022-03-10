@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Codivie</string>
+    <string name="tab_movies_title">Movies</string>
+    <string name="tab_events_title">Events</string>
+    <string name="tab_plays_title">Plays</string>
+    <string name="tab_sports_title">Sports</string>
+    <string name="tab_activities_title">Activities</string>
+    <string name="title_home">What are you looking for?</string>
+    <string name="lbl_msg_movie_empty">Movies Empty!</string>
+    <string name="movie_item_image">movie image</string>
+    <string name="lbl_popularity">%d</string>
+</resources>

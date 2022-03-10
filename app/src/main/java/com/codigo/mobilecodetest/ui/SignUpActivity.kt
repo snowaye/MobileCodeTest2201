@@ -9,7 +9,7 @@ import com.codigo.mobilecodetest.databinding.ActivitySignUpBinding
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(){
 
     private lateinit var viewModel: SignUpViewModel
     private lateinit var binding: ActivitySignUpBinding

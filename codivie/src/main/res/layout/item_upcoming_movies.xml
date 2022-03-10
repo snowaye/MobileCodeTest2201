@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="movie"
+            type="com.codigo.mobilecodetest.codivie.data.db.entities.Movie"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardPreventCornerOverlap="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_medium">
+
+            <ImageView
+                android:id="@+id/ivMovie"
+                android:layout_width="@dimen/movie_item_image_height"
+                android:layout_height="0dp"
+                android:contentDescription="@string/movie_item_image"
+                android:scaleType="centerCrop"
+                app:imageFromUrl="@{movie.poster_path}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tvMovieName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                tools:text="Movie Name"
+                android:textColor="@color/textColorMain"
+                android:textStyle="bold"
+                android:text="@{movie.title}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintStart_toEndOf="@id/ivMovie"
+                android:layout_marginStart="@dimen/margin_medium"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvMovieDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:textStyle="normal"
+                android:minLines="4"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:text="@{movie.overview}"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textColor="@color/textColorMainLight"
+                app:layout_constraintStart_toEndOf="@id/ivMovie"
+                app:layout_constraintTop_toBottomOf="@id/tvMovieName"/>
+
+            <ImageView
+                android:id="@+id/ivRating"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_width="@dimen/icon_size_label"
+                android:layout_height="@dimen/icon_size_label"
+                app:layout_constraintStart_toEndOf="@id/ivMovie"
+                android:layout_marginStart="@dimen/margin_medium"
+                app:layout_constraintTop_toBottomOf="@id/tvMovieDescription"
+                android:src="@drawable/ic_rating"/>
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_small"
+                tools:text="67 %"
+                android:text="@{movie.toPercentage(movie.vote_average)}"
+                android:gravity="center_horizontal"
+                android:textColor="@color/label_text_color"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintTop_toBottomOf="@id/tvMovieDescription"
+                app:layout_constraintStart_toEndOf="@id/ivRating"/>
+
+            <ImageView
+                android:id="@+id/ivComment"
+                android:layout_width="@dimen/margin_normal"
+                android:layout_height="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_normal"
+                app:layout_constraintStart_toEndOf="@id/tvRating"
+                app:layout_constraintTop_toBottomOf="@id/tvMovieDescription"
+                android:src="@drawable/ic_comment"/>
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginStart="@dimen/margin_small"
+                tools:text="97K"
+                android:text="@{movie.toRatingK(movie.vote_count)}"
+                android:textColor="@color/label_text_color"
+                android:gravity="center_horizontal"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                app:layout_constraintTop_toBottomOf="@id/tvMovieDescription"
+                app:layout_constraintStart_toEndOf="@id/ivComment"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

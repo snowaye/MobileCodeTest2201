@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movie_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_upcoming_movies"/>
+
+        <LinearLayout
+            android:id="@+id/layout_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="@dimen/icon_size_normal"
+                android:layout_height="@dimen/icon_size_normal"
+                android:src="@drawable/ic_search"
+                app:tint="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/empty_garden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColorMainLight"
+                android:text="@string/lbl_msg_movie_empty"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="@dimen/icon_size_normal"
+            android:layout_height="@dimen/icon_size_normal"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_margin="@dimen/margin_normal"
+            android:indeterminateTint="@color/colorPrimary"
+            android:id="@+id/progressBar"/>
+
+    </FrameLayout>
+
+</layout>
