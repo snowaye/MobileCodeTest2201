@@ -1,13 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailFragment">
-
-    <TextView
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.codigo.mobilecodetest.codivie.data.db.entities.Movie"/>
+        <variable
+            name="viewModel"
+            type="com.codigo.mobilecodetest.codivie.ui.detail.DetailViewModel" />
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello Detail" />
+        android:fitsSystemWindows="true"
+        tools:context=".ui.StartupActivity">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plant_detail_app_bar_height"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="?attr/colorSurface"
+            android:animateLayoutChanges="true">
 
-</FrameLayout>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorSurface"
+                app:statusBarScrim="?attr/colorSurface"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false"
+                app:toolbarId="@id/toolbar">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/plant_detail_app_bar_height"
+                    android:background="@drawable/bg_card"
+                    app:layout_collapseMode="parallax" >
+                    <ImageView
+                        android:id="@+id/detail_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:imageFromUrl="@{viewModel.movie.poster_path}"
+                        tools:srcCompat="@drawable/movie_avatar"
+                        android:layout_gravity="center|end"/>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    app:titleTextColor="?attr/colorOnSurface"
+                    app:layout_collapseMode="pin"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:navigationIcon="@drawable/ic_back_navigation"
+                    app:navigationIconTint="@color/white"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/margin_scrollview_bottom"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_normal">
+                <TextView
+                    android:id="@+id/tvMovieName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    tools:text="Movie Name"
+                    android:textColor="@color/textColorMain"
+                    android:textStyle="bold"
+                    android:text="@{viewModel.movie.title}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/tvReleaseDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    tools:text="dd-mm-yyyy"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:textColor="@color/textColorMainLight"
+                    android:textStyle="normal"
+                    android:text="@{viewModel.movie.release_date}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvMovieName"/>
+                <TextView
+                    android:id="@+id/tvPopularity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    tools:text="67 %"
+                    android:textColor="@color/textColorMainLight"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:textStyle="normal"
+                    android:text="@{viewModel.movie.toPercentage(viewModel.movie.vote_average)}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <ImageView
+                    android:id="@+id/ivRating"
+                    android:layout_width="@dimen/icon_size_label"
+                    android:layout_height="@dimen/icon_size_label"
+                    app:layout_constraintEnd_toStartOf="@id/tvPopularity"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:src="@drawable/ic_rating"/>
+                <TextView
+                    android:id="@+id/tvVoteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    tools:text="2100 votes"
+                    android:textColor="@color/textColorMainLight"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:textStyle="normal"
+                    android:text="@{viewModel.movie.toVoteCount(viewModel.movie.vote_count)}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPopularity"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_gravity="bottom"
+            app:layout_anchorGravity="bottom"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCreateNewAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_book_ticket"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="0dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

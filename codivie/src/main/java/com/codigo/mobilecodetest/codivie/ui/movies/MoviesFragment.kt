@@ -8,9 +8,8 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import com.codigo.mobilecodetest.codivie.adapters.MovieAdapter
+import com.codigo.mobilecodetest.codivie.adapters.RecommendedMovieAdapter
+import com.codigo.mobilecodetest.codivie.adapters.UpcomingMovieAdapter
 import com.codigo.mobilecodetest.codivie.databinding.FragmentMoviesBinding
 import com.codigo.mobilecodetest.codivie.utils.hide
 import com.codigo.mobilecodetest.codivie.utils.show
@@ -18,8 +17,6 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import com.codigo.mobilecodetest.codivie.utils.Coroutines
-import org.kodein.di.Kodein
-import androidx.lifecycle.get
 
 class MoviesFragment() : Fragment(), KodeinAware {
 
@@ -28,7 +25,8 @@ class MoviesFragment() : Fragment(), KodeinAware {
     private val viewModel: MoviesViewModel by instance()
 
     private lateinit var binding: FragmentMoviesBinding
-    private lateinit var adapter: MovieAdapter
+    private lateinit var upcomingMovieAdapter: UpcomingMovieAdapter
+    private lateinit var recommendedAdapter: RecommendedMovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +34,10 @@ class MoviesFragment() : Fragment(), KodeinAware {
     ): View? {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         context ?: return binding.root
-        adapter = MovieAdapter()
-        binding.movieList.adapter = adapter
+        upcomingMovieAdapter = UpcomingMovieAdapter()
+        recommendedAdapter = RecommendedMovieAdapter()
+        binding.rvUpcomingMovies.adapter = upcomingMovieAdapter
+        binding.rvRecommendedMovies.adapter = recommendedAdapter
         return binding.root
     }
 
@@ -47,13 +47,26 @@ class MoviesFragment() : Fragment(), KodeinAware {
     }
 
     private fun bindUI()=Coroutines.main {
+        binding.layoutData.visibility = GONE
         binding.progressBar.show()
-        viewModel.movies.value.await().observe(viewLifecycleOwner, Observer {
+        viewModel.recommendedMovies.value.await().observe(viewLifecycleOwner, Observer {
+            recommendedAdapter.submitList(it)
+            binding.progressBar.hide()
+            binding.layoutData.visibility = VISIBLE
+            binding.layoutEmpty.visibility = if(it.isNullOrEmpty()) VISIBLE else GONE
+            binding.tvRecommendedMovieTitle.visibility = if(it.isNullOrEmpty()) GONE else VISIBLE
+            binding.rvRecommendedMovies.visibility = if(it.isNullOrEmpty()) GONE else VISIBLE
+        })
+        binding.progressBar.show()
+        binding.layoutData.visibility = VISIBLE
+        viewModel.upcomingMovies.value.await().observe(viewLifecycleOwner, Observer {
+            upcomingMovieAdapter.submitList(it)
             binding.progressBar.hide()
             binding.layoutEmpty.visibility = if(it.isNullOrEmpty()) VISIBLE else GONE
-            adapter.submitList(it)
+            binding.tvRecommendedMovieTitle.visibility = if(it.isNullOrEmpty()) GONE else VISIBLE
+            binding.rvRecommendedMovies.visibility = if(it.isNullOrEmpty()) GONE else VISIBLE
         })
-    }
 
+    }
 
 }

@@ -3,11 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.sports.SportsFragment">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/layout_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sports" />
+        android:gravity="top|center_horizontal"
+        android:layout_marginTop="@dimen/movie_popular_image_height"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="@dimen/icon_size_normal"
+            android:layout_height="@dimen/icon_size_normal"
+            android:src="@drawable/ic_search"
+            app:tint="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorMainLight"
+            android:text="@string/lbl_msg_sports_empty"
+            android:textAppearance="?attr/textAppearanceBody1" />
+
+    </LinearLayout>
 
 </FrameLayout>

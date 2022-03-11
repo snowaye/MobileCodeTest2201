@@ -11,22 +11,71 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movie_list"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_normal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_upcoming_movies"/>
+            android:visibility="visible">
+            <TextView
+                android:id="@+id/tv_recommended_movie_title"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/textColorMain"
+                android:textStyle="bold"
+                android:text="@string/lbl_title_recommended_movies"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_medium"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recommended_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommended_movie_title"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_recommended_movies"/>
+            <TextView
+                android:id="@+id/tv_upcoming_movie_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/textColorMain"
+                android:textStyle="bold"
+                android:text="@string/lbl_title_upcoming"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_xLarge"
+                app:layout_constraintTop_toBottomOf="@id/rv_recommended_movies"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_upcoming_movies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                app:layout_goneMarginTop="@dimen/margin_medium"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_upcoming_movie_title"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_upcoming_movies"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/layout_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="top|center_horizontal"
+            android:layout_marginTop="@dimen/movie_popular_image_height"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="@dimen/icon_size_normal"
@@ -35,7 +84,6 @@
                 app:tint="@color/colorPrimary"/>
 
             <TextView
-                android:id="@+id/empty_garden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColorMainLight"

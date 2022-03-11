@@ -9,4 +9,10 @@
     <string name="lbl_msg_movie_empty">Movies Empty!</string>
     <string name="movie_item_image">movie image</string>
     <string name="lbl_popularity">%d</string>
+    <string name="lbl_title_upcoming">Upcoming Movies</string>
+    <string name="lbl_title_recommended_movies">Recommended</string>
+    <string name="lbl_msg_events_empty">Events Empty!</string>
+    <string name="lbl_msg_plays_empty">Plays Empty</string>
+    <string name="lbl_msg_sports_empty">Sports Empty</string>
+    <string name="btn_book_ticket">Book Tickets</string>
 </resources>

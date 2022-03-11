@@ -14,8 +14,9 @@ interface MovieDao {
     fun getMovies(): LiveData<List<Movie>>
 
     @Query("SELECT * FROM movies WHERE id = :movieId")
-    fun getPlant(movieId: String): LiveData<Movie>
+    fun getMovie(movieId: String): LiveData<Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+
     suspend fun insertAll(movies: List<Movie>)
 }

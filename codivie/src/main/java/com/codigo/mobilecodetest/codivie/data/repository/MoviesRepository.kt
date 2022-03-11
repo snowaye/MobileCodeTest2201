@@ -12,7 +12,7 @@ import com.codigo.mobilecodetest.codivie.utils.PrefManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-private const val MINIMUM_INTERVAL = 1L
+private const val MINIMUM_INTERVAL = 24L
 
 
 class MoviesRepository(
@@ -21,26 +21,50 @@ class MoviesRepository(
     private val pref: PrefManager): BaseRepository()
 {
     private val movies = MutableLiveData<List<Movie>>()
+    private val recommendedMovies = MutableLiveData<List<Movie>>()
 
     init {
         movies.observeForever {
-            saveQuotes(it)
+            saveMovies(it)
         }
     }
 
-    suspend fun getMovies(): LiveData<List<Movie>> {
+    fun getMovie(movieId: String) = db.movieDao().getMovie(movieId)
+
+    suspend fun getUpcomingMovies(): LiveData<List<Movie>> {
         return withContext(Dispatchers.IO) {
-            fetchMovies()
+            fetchUpcomingMovies()
             db.movieDao().getMovies()
         }
     }
 
-    private suspend fun fetchMovies() {
+    suspend fun getRecommendedMovies(): LiveData<List<Movie>> {
+        return withContext(Dispatchers.IO) {
+            fetchRecommendedMovies()
+            db.movieDao().getMovies()
+        }
+    }
+
+
+    private suspend fun fetchUpcomingMovies() {
         val lastSavedAt = pref.getLastFetchedTime()
 
         if (lastSavedAt <=0 || isFetchNeeded(lastSavedAt)) {
             try {
-                val response = apiRequest { api.getMovies() }
+                val response = apiRequest { api.getUpcomingMovies() }
+                movies.postValue(response.results)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private suspend fun fetchRecommendedMovies() {
+        val lastSavedAt = pref.getLastFetchedTime()
+
+        if (lastSavedAt <=0 || isFetchNeeded(lastSavedAt)) {
+            try {
+                val response = apiRequest { api.getRecommendedMovies() }
                 movies.postValue(response.results)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -54,10 +78,13 @@ class MoviesRepository(
     }
 
 
-    private fun saveQuotes(movies: List<Movie>) {
+    private fun saveMovies(movies: List<Movie>) {
         Coroutines.io {
             pref.setLastFetchedTime(System.currentTimeMillis())
             db.movieDao().insertAll(movies)
         }
     }
+
+
 }
+

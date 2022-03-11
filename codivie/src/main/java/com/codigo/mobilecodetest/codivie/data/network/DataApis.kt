@@ -38,8 +38,13 @@ interface DataApis {
     }
 
     @GET("movie/upcoming")
-    suspend fun getMovies(
+    suspend fun getUpcomingMovies(
         @Query("api_key") apiKey:String? = API_KEY
     ) : Response<MoviesResponse>
+
+    @GET("movie/popular")
+    suspend fun getRecommendedMovies(
+        @Query("api_key") apiKey: String? = API_KEY
+    ): Response<MoviesResponse>
 
 }

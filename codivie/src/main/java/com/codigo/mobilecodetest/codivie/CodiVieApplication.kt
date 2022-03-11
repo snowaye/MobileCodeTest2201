@@ -1,7 +1,6 @@
 package com.codigo.mobilecodetest.codivie
 
 import android.app.Application
-import android.graphics.Movie
 import com.codigo.mobilecodetest.codivie.data.db.AppDatabase
 import com.codigo.mobilecodetest.codivie.data.network.DataApis
 import com.codigo.mobilecodetest.codivie.data.network.NetworkConnectionInterceptor
@@ -12,10 +11,7 @@ import com.codigo.mobilecodetest.codivie.utils.PrefManager
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 
 class CodiVieApplication : Application(), KodeinAware {
 
@@ -29,7 +25,11 @@ class CodiVieApplication : Application(), KodeinAware {
         bind() from singleton { MoviesRepository(instance(), instance(), instance()) }
         bind() from provider { MoviesViewModelFactory(instance()) }
         bind() from provider { MoviesViewModel(instance()) }
+//        bind() from factory {
+//                movieId: String ->
+//            DetailsViewModelFactory(instance(), movieId)
+//        }
+//        bind() from provider { DetailViewModel(instance(), instance()) }
     }
-
 
 }

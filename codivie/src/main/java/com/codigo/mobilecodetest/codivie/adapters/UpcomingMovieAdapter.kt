@@ -16,21 +16,23 @@
 
 package com.codigo.mobilecodetest.codivie.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.codigo.mobilecodetest.codivie.R
 import com.codigo.mobilecodetest.codivie.data.db.entities.Movie
 import com.codigo.mobilecodetest.codivie.databinding.ItemUpcomingMoviesBinding
+import com.codigo.mobilecodetest.codivie.ui.home.HomeFragmentDirections
 
 /**
  * Adapter for the [RecyclerView] in [MoviesFragment].
  */
-class MovieAdapter : ListAdapter<Movie, RecyclerView.ViewHolder>(PlantDiffCallback()) {
+class UpcomingMovieAdapter : ListAdapter<Movie, RecyclerView.ViewHolder>(PlantDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return UpcomingMovieViewHolder(
@@ -44,7 +46,6 @@ class MovieAdapter : ListAdapter<Movie, RecyclerView.ViewHolder>(PlantDiffCallba
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movie = getItem(position)
-        Log.i("MVIE", "count=${movie.toPercentage(movie.vote_average)} ${movie.toRatingK(movie.vote_count)}")
         (holder as UpcomingMovieViewHolder).bind(movie)
     }
 
@@ -63,11 +64,12 @@ class MovieAdapter : ListAdapter<Movie, RecyclerView.ViewHolder>(PlantDiffCallba
             movie: Movie,
             view: View
         ) {
-//            val direction =
-//                HomeViewPagerFragmentDirections.actionViewPagerFragmentToPlantDetailFragment(
-//                    plant.plantId
-//                )
-//            view.findNavController().navigate(direction)
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+            val bundle = bundleOf("movieId" to movie.id)
+            val navController by lazy { view.findNavController() }
+            navController.setGraph(R.navigation.nav_graph, bundle)
+            navController.navigate(direction)
         }
 
         fun bind(item: Movie) {
@@ -77,15 +79,17 @@ class MovieAdapter : ListAdapter<Movie, RecyclerView.ViewHolder>(PlantDiffCallba
             }
         }
     }
+
+    private class PlantDiffCallback : DiffUtil.ItemCallback<Movie>() {
+
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
 
-private class PlantDiffCallback : DiffUtil.ItemCallback<Movie>() {
 
-    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-        return oldItem == newItem
-    }
-}

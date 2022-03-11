@@ -18,7 +18,9 @@ data class Movie (
     @SerializedName("vote_count")
     val vote_count: Int,
     @SerializedName("poster_path")
-    val poster_path: String
+    val poster_path: String,
+    @SerializedName("release_date")
+    var release_date: String
 ) {
     override fun toString() = title
 
@@ -31,6 +33,10 @@ data class Movie (
     fun toPercentage(v: Double): String {
         val percentage = v * 10
         return StringBuilder().append(String.format("%2d ", percentage.toInt())).append("%").toString()
+    }
+
+    fun toVoteCount(v: Int): String {
+        return StringBuilder().append(this).append(" votes").toString()
     }
 }
 
